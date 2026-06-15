@@ -1,12 +1,68 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from
+  '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+interface respostaLogin {
+  message: string;
+  tipoMensagem: string;
+  userData: {
+    email: string;
+    nome: string;
+    admin: boolean;
+  };
+}
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
 
+export class LoginComponent {
+  constructor(private http: HttpClient, private router: Router, private cdr: ChangeDetectorRef) { }
+
+  formularioLogin = new FormGroup({
+    email: new FormControl('', Validators.required),
+    senha: new FormControl('', [Validators.required,
+    Validators.minLength(8)]),
+  });
+
+  mensagem: string = '';
+  tipoMensagem: string = '';
+  userData: { email: string; nome: string; admin: boolean } = {
+    email: '',
+    nome: '',
+    admin: false,
+  };
+
+  onSubmit() {
+    if (this.formularioLogin.valid) {
+      this.http
+        .post<respostaLogin>(
+          'http://localhost:3000/api/login',
+          this.formularioLogin.value
+        )
+        .subscribe({
+          next: (res) => {
+            this.tipoMensagem = (res.tipoMensagem as any) || 'success';
+            this.mensagem = res.message || 'Login realizado com sucesso!';
+            this.cdr.detectChanges();
+
+            if (res.tipoMensagem === 'success') {
+              this.router.navigateByUrl('/home', {
+                state: { userData: res.userData },
+              });
+            }
+          },
+          error: (err) => {
+            this.tipoMensagem = err.error?.tipoMensagem || 'danger';
+            this.mensagem = err.error?.message || 'Usuário ou senha inválidos';
+            this.cdr.detectChanges();
+          },
+        });
+    }
+  }
 }
