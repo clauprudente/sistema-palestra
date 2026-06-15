@@ -3,6 +3,6 @@ const conexao = mysql.createPool({
     host: "localhost",
     user: "root",
     password: "",
-    database: "sistema_palestras"
+    database: "palestras"
 })
 module.exports = conexao;
