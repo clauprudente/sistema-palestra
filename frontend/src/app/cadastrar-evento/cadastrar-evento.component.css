@@ -1,0 +1,27 @@
+form {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: 50px auto;
+    border: 2px solid #000;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #457b9d;
+    color: #fff;
+}
+
+input {
+    margin-bottom: 10px;
+}
+
+button[type="submit"] {
+    width: 20%;
+    background-color: #e63946;
+    color: #fff;
+    align-self: center;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 40px;
+}

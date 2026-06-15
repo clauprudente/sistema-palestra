@@ -9,6 +9,7 @@ interface respostaLogin {
   message: string;
   tipoMensagem: string;
   userData: {
+    id: number;
     email: string;
     nome: string;
     admin: boolean;
@@ -60,6 +61,7 @@ export class LoginComponent {
 
             if (res.tipoMensagem === 'success') {
               this.authService.login(res.userData);
+
               this.router.navigateByUrl('/home', {
                 state: { userData: res.userData },
               });

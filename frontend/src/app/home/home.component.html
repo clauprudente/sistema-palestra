@@ -7,3 +7,28 @@
     </ul>
 </div>
 }
+<h3>Bem vindo, {{userData?.nome}}</h3>
+<h1>Eventos disponíveis</h1>
+@if (palestras.length > 0) {
+<div id="gradeEventos">
+    @for (p of palestras; track p.id) {
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">{{ p.titulo }}</h5>
+            <p class="card-text">{{ p.descricao }}</p>
+            <p class="card-text">
+                <strong>Palestrante:</strong> {{ p.nomePalestrante }}<br />
+                <strong>Local:</strong> {{ p.localEvento }}<br />
+                <strong>Data:</strong> {{ p.dataEvento | date: 'dd/MM/yyyy' }}
+                <strong>Hora:</strong> {{ p.dataEvento | date: 'HH:mm' }} <br>
+                @if (!userData?.admin) {
+                <button (click)="inscricao(p.id)">Participar</button>
+                }
+            </p>
+        </div>
+    </div>
+    }
+</div>
+} @else {
+<p>Nenhum evento encontrado :(</p>
+}

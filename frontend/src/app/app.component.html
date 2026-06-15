@@ -29,6 +29,13 @@ navigation">
           </a>
         </li>
         }
+        @if (userData?.admin) {
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/admin" routerLinkActive="active">
+            admin
+          </a>
+        </li>
+        }
       </ul>
     </div>
   </div>

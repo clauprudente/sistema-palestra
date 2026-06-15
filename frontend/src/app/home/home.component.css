@@ -1,0 +1,29 @@
+h1,
+h3 {
+    margin: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+#gradeEventos {
+    align-items: center;
+    display: flex;
+    margin: 40px;
+}
+
+.card-body button {
+    margin: 10px auto;
+    border: none;
+    padding: 5px;
+    width: 100%;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 6px;
+    background-color: rgb(107, 214, 107);
+}
+
+.card-body button:hover {
+    transform: scale(1.02);
+}
