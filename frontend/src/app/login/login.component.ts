@@ -3,6 +3,8 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from
   '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
+
 interface respostaLogin {
   message: string;
   tipoMensagem: string;
@@ -22,7 +24,12 @@ interface respostaLogin {
 })
 
 export class LoginComponent {
-  constructor(private http: HttpClient, private router: Router, private cdr: ChangeDetectorRef) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private cdr: ChangeDetectorRef,
+    private authService: AuthService
+  ) { }
 
   formularioLogin = new FormGroup({
     email: new FormControl('', Validators.required),
@@ -52,6 +59,7 @@ export class LoginComponent {
             this.cdr.detectChanges();
 
             if (res.tipoMensagem === 'success') {
+              this.authService.login(res.userData);
               this.router.navigateByUrl('/home', {
                 state: { userData: res.userData },
               });

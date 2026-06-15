@@ -1,1 +1,9 @@
-<p>home works!</p>
+@if (userData) {
+<div>
+    <ul>
+        <li>{{ userData.email }}</li>
+        <li>{{ userData.nome }}</li>
+        <li>{{ userData.admin ? 'admin' : 'normal' }}</li>
+    </ul>
+</div>
+}
