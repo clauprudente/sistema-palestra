@@ -34,8 +34,11 @@ export class LoginComponent {
 
   formularioLogin = new FormGroup({
     email: new FormControl('', Validators.required),
-    senha: new FormControl('', [Validators.required,
-    Validators.minLength(8)]),
+    senha: new FormControl('', [
+      Validators.required,
+      Validators.minLength(8),
+      Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/)
+    ]),
   });
 
   mensagem: string = '';

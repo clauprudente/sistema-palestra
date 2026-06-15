@@ -37,6 +37,11 @@
         <p class="alert alert-warning">Campo <strong>senha</strong> precisa
             conter pelo menos 8 caracteres!</p>
         }
+        @if(formularioCadastro.get('senha')?.hasError('pattern') &&
+        formularioCadastro.get('senha')?.touched) {
+        <p class="alert alert-warning">A senha precisa incluir letras maiúsculas, minúsculas, números e caracteres
+            especiais.</p>
+        }
     </div>
     <button type="submit" class="btn btn-primary" [disabled]="!formularioCadastro.valid">Criar conta</button>
 </form>
